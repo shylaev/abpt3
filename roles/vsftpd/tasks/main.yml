@@ -1,0 +1,21 @@
+# playbook
+---
+  - name: install if not yet
+    yum:
+      name: vsftpd
+      state: latest
+    notify:
+      - write config
+      - prepare catalog
+
+  - name: start vsftpd
+    service:
+      name: vsftpd
+      state: started
+      enabled: yes
+    notify:
+      - lower ports
+      - upper ports
+
+...
+

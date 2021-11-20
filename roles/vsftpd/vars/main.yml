@@ -1,0 +1,8 @@
+---
+  ftp_anon_catalog: /var/ftp/pub
+  max_port: 65000
+  min_port: 55000
+  vsftpd_user: ftp
+  vsftpd_group: ftp
+  sel_ftpd_anon: on
+  sel_ftpd_passiv: on

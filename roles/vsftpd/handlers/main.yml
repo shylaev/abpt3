@@ -1,0 +1,33 @@
+---
+  - name: lower ports
+    firewalld:
+      port: 20-21/tcp
+      permanent: yes
+      state: enabled
+  - name: upper ports
+    firewalld:
+      port: "{{ min_port }}-{{ max_port }}/tcp"
+      permanent: yes
+      state: enabled
+  - name: write config
+    template:
+      src: ../templates/vsftpd.conf.j2
+      dest: /etc/vsftpd/vsftpd.conf
+      backup: yes
+    notify:
+       - selinux tune
+  - name: restart service
+    service:
+      name: vsftpd
+      state: restarted
+  - name: selinux tune
+    command: setsebool ftpd_anon_write="{{ sel_ftpd_anon }}" ftpd_use_passive_mode="{{ sel_ftpd_passiv }}"
+    notify:
+    - restart service
+  - name: prepare catalog
+    file:
+      path: /var/ftp/pub/upload
+      state: directory
+      owner: "{{ vsftpd_user }}"
+      group: "{{ vsftpd_group }}"
+      mode: 0777

@@ -1,0 +1,8 @@
+[nodes]
+node1.example.com
+node2.example.com
+
+[one]
+node1.example.com
+
+

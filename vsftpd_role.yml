@@ -1,0 +1,10 @@
+---
+
+- name: simple net services
+  hosts: all
+  user: ansible
+  become: yes
+  become_method: sudo
+  become_user: root
+  roles:
+    - vsftpd

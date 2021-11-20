@@ -1,0 +1,28 @@
+# playbook
+---
+- name: install vsftpd and turn it on
+  hosts: one
+  user: ansible
+  become: yes
+  become_method: sudo
+  become_user: root
+ 
+  tasks:
+  - name: deinsttall
+    yum:
+      name: vsftpd
+      state: absent
+      autoremove: yes
+  - name: build  wall
+    block:
+      - name: lower ports
+        firewalld:
+          port: 20-21/tcp
+          permanent: yes
+          state: disabled
+      - name: upper ports
+        firewalld:
+          port: 49152-65534/tcp
+          permanent: yes
+          state: disabled
+...

@@ -1,0 +1,28 @@
+# additional playbook
+#
+  - name: gathering facts
+    package_facts:
+      manager: auto
+
+  - name: get CPU info
+    shell: lscpu | grep 'Model name' | awk '{$1=$2=""; print $0}'
+    register: cpu_name
+
+  - name: add some facts on main page
+    blockinfile:
+      path: /var/www/html/index.html
+      insertbefore: '</body>'
+      marker: ""
+      block: |
+        <table align=center>
+          <tr>
+            <td align=center>
+          we running {{ ansible_facts.packages['httpd'][0].name}} {{ ansible_facts.packages['httpd'][0].version }}
+        <br> under
+        <br>{{ ansible_facts['distribution'] }}
+        <br> driven by 
+        <br>{{ cpu_name.stdout }}
+            </td>
+          </tr>
+        </table>
+...

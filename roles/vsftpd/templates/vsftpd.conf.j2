@@ -1,0 +1,38 @@
+#
+# template for playbook
+###################################################
+
+#minimum required
+##################################################
+local_enable=NO
+write_enable=YES
+local_umask=022
+dirmessage_enable=YES
+xferlog_enable=YES
+connect_from_port_20=YES
+xferlog_std_format=YES
+listen=YES
+listen_ipv6=NO
+userlist_enable=YES
+
+#anonymous section
+###################################################
+anonymous_enable=YES
+no_anon_password=YES
+anon_root={{ ftp_anon_catalog }}
+anon_upload_enable=YES
+anon_mkdir_write_enable=YES
+anon_other_write_enable=YES
+anon_umask=022
+hide_ids=YES
+chown_uploads=YES
+chown_username=ftp
+chown_upload_mode=0660
+
+
+# at last a bit of tune up
+##################################################
+nopriv_user=ftp
+pasv_min_port={{ min_port }}
+pasv_max_port={{ max_port }}
+vsftpd_log_file=/var/log/ans-vsftpd.log

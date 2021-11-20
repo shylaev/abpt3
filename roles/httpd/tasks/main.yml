@@ -1,0 +1,19 @@
+---
+
+  - name: install httpd
+    yum:
+      name: httpd
+      state: latest
+    notify:
+      - write index page
+      - add some info on main page
+
+  - name: start httpd 
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    notify:
+      - open wall
+
+...

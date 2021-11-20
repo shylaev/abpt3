@@ -1,0 +1,16 @@
+---
+  - name: write index page
+    template: 
+      src: ../templates/index.html.j2
+      dest: /var/www/html/index.html
+      backup: yes
+
+  - name: open wall
+    firewalld:
+      port: 80/tcp
+      permanent: yes
+      state: enabled
+
+  - name: add some info on main page
+    include_tasks: ../tasks/addinfo.yml
+...
